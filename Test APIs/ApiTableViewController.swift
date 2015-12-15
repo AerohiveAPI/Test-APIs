@@ -5,6 +5,7 @@
 //  Created by Daniel O'Rorke on 11/16/15.
 //  Copyright © 2015 Aerohive Networks. All rights reserved.
 //
+//  This application is intended to test the Aerohive API gateways and print the results to the console.
 
 import UIKit
 // import our Cocoa Pods
@@ -15,25 +16,31 @@ class ApiTableViewController: UITableViewController {
     
     
     // MARK: Variables for API Use
-    
-    
-    
     let clientSecret = "daffa2ecd066ef09da98e4527749dee2"
     let redirectURL = "https://mysite.com"
     let clientID = "19a087a8"
+    
+    
     // CloudVA
     let VA_baseURL = "https://cloud-va.aerohive.com/xapi/"
     let VA_OwnerID = "1265"
     let VA_authToken = "zO3NHJh65L3aWoQdfy7WgRJVcz52x6u5"
+    
+    
     // CloudIE
     let IE_baseURL = "https://cloud-ie.aerohive.com/xapi/"
     let IE_OwnerID = "9885"
-    let IE_authToken = "gR8k9hK1fKaYoG49usEIb39AgJqNB4gq"
+    let IE_authToken = "8OxUYbmiV5jW2bsYbeA9tCDLlDyLeIKX19a087a8"
+    
+    var APIresults = [:]
+    
+    
+    // This is a less-than-optimal-way of doing this. Let's count them in the future.
+    let numberOfAPIs = 2
     
     
     
 
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,26 +51,28 @@ class ApiTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+
+        
         var params : [String:String]
         
         // Try Device Monitoring in USA
         params = [
             "AuthToken": VA_authToken,
             "ownerID": VA_OwnerID,
-            "URL": VA_baseURL + "v1/monitor/clients?" + VA_OwnerID,
+            "URL": VA_baseURL + "v1/monitor/clients?ownerId=" + VA_OwnerID,
             "CLIENT-SECRET": clientSecret,
             "CLIENT-ID": clientID,
             "CLIENT-REDIRECT-URI": redirectURL,
             "RDC":"USA",
             "API":"Device Monitor"
         ]
-        testAPI(params)
+        //testAPI(params)
         
         // Try Device Monitoring in EMEA
         params = [
             "AuthToken": IE_authToken,
             "ownerID": IE_OwnerID,
-            "URL": IE_baseURL + "v1/monitor/clients?" + IE_OwnerID,
+            "URL": IE_baseURL + "v1/monitor/clients?ownerId=" + IE_OwnerID,
             "CLIENT-SECRET": clientSecret,
             "CLIENT-ID": clientID,
             "CLIENT-REDIRECT-URI": redirectURL,
@@ -76,20 +85,20 @@ class ApiTableViewController: UITableViewController {
         params = [
             "AuthToken": VA_authToken,
             "ownerID": VA_OwnerID,
-            "URL": VA_baseURL + "v1/monitoring/devices?" + VA_OwnerID,
+            "URL": VA_baseURL + "v1/monitor/devices?ownerId=" + VA_OwnerID,
             "CLIENT-SECRET": clientSecret,
             "CLIENT-ID": clientID,
             "CLIENT-REDIRECT-URI": redirectURL,
             "RDC":"USA",
             "API":"Client Monitor"
         ]
-        testAPI(params)
+        //testAPI(params)
         
         // Try Client Monitoring in EMEA
         params = [
             "AuthToken": IE_authToken,
             "ownerID": IE_OwnerID,
-            "URL": IE_baseURL + "v1/monitoring/devices?" + IE_OwnerID,
+            "URL": IE_baseURL + "v1/monitor/devices?ownerId=" + IE_OwnerID,
             "CLIENT-SECRET": clientSecret,
             "CLIENT-ID": clientID,
             "CLIENT-REDIRECT-URI": redirectURL,
@@ -97,6 +106,87 @@ class ApiTableViewController: UITableViewController {
             "API":"Client Monitor"
         ]
         testAPI(params)
+        
+        // Try AP Location Config in USA
+        params = [
+            "AuthToken": VA_authToken,
+            "ownerID": VA_OwnerID,
+            "URL": VA_baseURL + "v1/configuration/apLocationFolders?ownerId=" + VA_OwnerID,
+            "CLIENT-SECRET": clientSecret,
+            "CLIENT-ID": clientID,
+            "CLIENT-REDIRECT-URI": redirectURL,
+            "RDC":"USA",
+            "API":"AP Loc Config"
+        ]
+        //testAPI(params)
+        
+        // Try AP Location Config in EMEA
+        params = [
+            "AuthToken": IE_authToken,
+            "ownerID": IE_OwnerID,
+            "URL": IE_baseURL + "v1/configuration/apLocationFolders?ownerId=" + IE_OwnerID,
+            "CLIENT-SECRET": clientSecret,
+            "CLIENT-ID": clientID,
+            "CLIENT-REDIRECT-URI": redirectURL,
+            "RDC":"EMEA",
+            "API":"AP Loc Config"
+        ]
+        testAPI(params)
+        
+        // Try User Group Management in USA
+        params = [
+            "AuthToken": VA_authToken,
+            "ownerID": VA_OwnerID,
+            "URL": VA_baseURL + "v1/identity/userGroups?ownerId=" + VA_OwnerID,
+            "CLIENT-SECRET": clientSecret,
+            "CLIENT-ID": clientID,
+            "CLIENT-REDIRECT-URI": redirectURL,
+            "RDC":"USA",
+            "API":"User Group Mgmt"
+        ]
+        //testAPI(params)
+        
+        // Try User Group Management in EMEA
+        params = [
+            "AuthToken": IE_authToken,
+            "ownerID": IE_OwnerID,
+            "URL": IE_baseURL + "v1/identity/userGroups?ownerId=" + IE_OwnerID,
+            "CLIENT-SECRET": clientSecret,
+            "CLIENT-ID": clientID,
+            "CLIENT-REDIRECT-URI": redirectURL,
+            "RDC":"EMEA",
+            "API":"User Group Mgmt"
+        ]
+        testAPI(params)
+        
+
+        // Try ID Management in USA
+        params = [
+            "AuthToken": VA_authToken,
+            "ownerID": VA_OwnerID,
+            "URL": VA_baseURL + "v1/identity/credentials?ownerId=" + VA_OwnerID,
+            "CLIENT-SECRET": clientSecret,
+            "CLIENT-ID": clientID,
+            "CLIENT-REDIRECT-URI": redirectURL,
+            "RDC":"USA",
+            "API":"ID Management"
+        ]
+        //testAPI(params)
+        
+        // Try ID Management in EMEA
+        params = [
+            "AuthToken": IE_authToken,
+            "ownerID": IE_OwnerID,
+            "URL": IE_baseURL + "v1/identity/credentials?ownerId=" + IE_OwnerID,
+            "CLIENT-SECRET": clientSecret,
+            "CLIENT-ID": clientID,
+            "CLIENT-REDIRECT-URI": redirectURL,
+            "RDC":"EMEA",
+            "API":"ID Management"
+        ]
+        testAPI(params)
+        
+        
         
         
     }
@@ -119,6 +209,7 @@ class ApiTableViewController: UITableViewController {
                     print(response.result.error!)
                     print("Headers: ")
                     print(headers)
+                    // Need to add code to pass error up to UI
                     return
                 }
                 // So far, we only confirmed that we can talk to a server.
@@ -131,6 +222,8 @@ class ApiTableViewController: UITableViewController {
                         print(params["API"]!+" - "+params["RDC"]!+" - OK!")
                         // Here is where you can add code to do something with the data
                             
+                            //APIresults += ["APIName":params["API"]]
+                        
                         }
                     }
                     else { // something went wrong!
@@ -159,7 +252,7 @@ class ApiTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return numberOfAPIs
     }
 
     
