@@ -24,7 +24,7 @@ class ApiTableViewController: UITableViewController {
     // CloudVA
     let VA_baseURL = "https://cloud-va.aerohive.com/xapi/"
     let VA_OwnerID = "1265"
-    let VA_authToken = "zO3NHJh65L3aWoQdfy7WgRJVcz52x6u5"
+    let VA_authToken = "UPhkEFJROMlNkDVrF3CCVXPw3KGAlcl119a087a8"
     
     
     // CloudIE
@@ -66,7 +66,7 @@ class ApiTableViewController: UITableViewController {
             "RDC":"USA",
             "API":"Device Monitor"
         ]
-        //testAPI(params)
+        testAPI(params)
         
         // Try Device Monitoring in EMEA
         params = [
@@ -92,7 +92,7 @@ class ApiTableViewController: UITableViewController {
             "RDC":"USA",
             "API":"Client Monitor"
         ]
-        //testAPI(params)
+        testAPI(params)
         
         // Try Client Monitoring in EMEA
         params = [
@@ -118,7 +118,7 @@ class ApiTableViewController: UITableViewController {
             "RDC":"USA",
             "API":"AP Loc Config"
         ]
-        //testAPI(params)
+        testAPI(params)
         
         // Try AP Location Config in EMEA
         params = [
@@ -144,7 +144,7 @@ class ApiTableViewController: UITableViewController {
             "RDC":"USA",
             "API":"User Group Mgmt"
         ]
-        //testAPI(params)
+        testAPI(params)
         
         // Try User Group Management in EMEA
         params = [
@@ -171,7 +171,7 @@ class ApiTableViewController: UITableViewController {
             "RDC":"USA",
             "API":"ID Management"
         ]
-        //testAPI(params)
+        testAPI(params)
         
         // Try ID Management in EMEA
         params = [
